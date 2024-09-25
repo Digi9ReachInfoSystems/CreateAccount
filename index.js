@@ -12,7 +12,7 @@ app.post('/createUser', async (req, res) => {
 
   if (!email || !password || !displayName || !user_role) {
     return res.status(400).send({ message: 'Missing required fields' });
-  }  c
+  }  
 
   try {
     const userRecord = await admin.auth().createUser({
