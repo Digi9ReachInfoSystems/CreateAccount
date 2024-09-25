@@ -19,7 +19,7 @@ app.post('/createUser', async (req, res) => {
       email: email,
       password: password,
       displayName: displayName,
-      user_role:user_role,
+
     });
 
     await db.collection('users').doc(userRecord.uid).set({
