@@ -6,12 +6,13 @@ app.use(express.json());
 
 const db = admin.firestore();
 
+
 app.post('/createUser', async (req, res) => {
   const { email, password, displayName, user_role } = req.body;
 
   if (!email || !password || !displayName || !user_role) {
     return res.status(400).send({ message: 'Missing required fields' });
-  }
+  }  c
 
   try {
     const userRecord = await admin.auth().createUser({
