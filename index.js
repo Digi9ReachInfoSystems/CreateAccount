@@ -15,7 +15,7 @@ app.post("/createUser", async (req, res) => {
     password,
     displayName,
     user_role,
-    phoneNumber,
+    phone_number,
     address,
   } = req.body;
 
@@ -25,7 +25,7 @@ app.post("/createUser", async (req, res) => {
     !password ||
     !displayName ||
     !user_role ||
-    !phoneNumber ||
+    !phone_number ||
     !address
   ) {
     return res.status(400).send({ message: "Missing required fields" });
@@ -48,7 +48,7 @@ app.post("/createUser", async (req, res) => {
       display_name: userRecord.displayName,
       user_role: user_role,
       userId: userId,
-      phoneNumber: phoneNumber, // Provided phone number
+      phone_number: phone_number, // Provided phone number
       address: address,
       createdAt: "1108",
     });
