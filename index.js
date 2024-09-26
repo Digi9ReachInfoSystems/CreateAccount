@@ -8,9 +8,9 @@ const db = admin.firestore();
 const FieldValue = admin.firestore.FieldValue;
 
 app.post('/createUser', async (req, res) => {
-  const { email, password, displayName, user_role } = req.body;
+  const { userId, email, password, displayName, user_role, phoneNumber, address } = req.body;
 
-  if (!email || !password || !displayName || !user_role) {
+  if (!userId || !email || !password || !displayName || !user_role || !phoneNumber || !address) {
     return res.status(400).send({ message: 'Missing required fields' });
   }
 
@@ -30,6 +30,9 @@ app.post('/createUser', async (req, res) => {
       email: userRecord.email,
       displayName: userRecord.displayName,
       user_role: user_role,
+      userId: userId,
+      phoneNumber: phoneNumber, // Provided phone number
+      address: address, 
       createdAt: FieldValue.serverTimestamp(),
     });
 
