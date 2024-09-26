@@ -50,7 +50,7 @@ app.post("/createUser", async (req, res) => {
       userId: userId,
       phone_number: phone_number, // Provided phone number
       address: address,
-      createdAt: "1108",
+      createdAt: FieldValue.serverTimestamp(),
     });
 
     res
