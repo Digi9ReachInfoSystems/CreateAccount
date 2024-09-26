@@ -8,9 +8,9 @@ const db = admin.firestore();
 const FieldValue = admin.firestore.FieldValue;
 
 app.post('/createUser', async (req, res) => {
-  const { userId, email, password, displayName, user_role, phoneNumber, address } = req.body;
+  const { userId, email, password, display_name, user_role, phoneNumber, address } = req.body;
 
-  if (!userId || !email || !password || !displayName || !user_role || !phoneNumber || !address) {
+  if (!userId || !email || !password || !display_name || !user_role || !phoneNumber || !address) {
     return res.status(400).send({ message: 'Missing required fields' });
   }
 
@@ -19,7 +19,7 @@ app.post('/createUser', async (req, res) => {
     const userRecord = await admin.auth().createUser({
       email: email,
       password: password,
-      displayName: displayName,
+      display_name: display_name,
     });
 
     // Optionally set custom user claims
@@ -28,7 +28,7 @@ app.post('/createUser', async (req, res) => {
     // Store user data in Firestore, using user_role from req.body
     await db.collection('users').doc(userRecord.uid).set({
       email: userRecord.email,
-      displayName: userRecord.displayName,
+      display_name: userRecord.display_name,
       user_role: user_role,
       userId: userId,
       phoneNumber: phoneNumber, // Provided phone number
