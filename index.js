@@ -19,7 +19,7 @@ app.post('/createUser', async (req, res) => {
     const userRecord = await admin.auth().createUser({
       email: email,
       password: password,
-      displayName: displayName,
+      displayName: user_name,
     });
 
     // Optionally set custom user claims
