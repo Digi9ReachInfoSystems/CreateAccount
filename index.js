@@ -5,6 +5,7 @@ const app = express();
 app.use(express.json());
 
 const db = admin.firestore();
+
 const FieldValue = admin.firestore.FieldValue;
 
 app.post('/createUser', async (req, res) => {
@@ -23,7 +24,7 @@ app.post('/createUser', async (req, res) => {
     });
 
     // Optionally set custom user claims
-    await admin.auth().setCustomUserClaims(userRecord.uid, { user_role: user_role });
+    // await admin.auth().setCustomUserClaims(userRecord.uid, { user_role: user_role });
 
     // Store user data in Firestore, using user_role from req.body
     await db.collection('users').doc(userRecord.uid).set({
@@ -33,7 +34,7 @@ app.post('/createUser', async (req, res) => {
       userId: userId,
       phoneNumber: phoneNumber, // Provided phone number
       address: address, 
-      createdAt: FieldValue.serverTimestamp(),
+      createdAt: "1108",
     });
 
     res.status(201).send({ message: 'User created successfully', userId: userRecord.uid });
