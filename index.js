@@ -41,9 +41,8 @@ app.post("/createUser", async (req, res) => {
 
     // Optionally set custom user claims
     // await admin.auth().setCustomUserClaims(userRecord.uid, { user_role: user_role });
-
-    // Store user data in Firestore, using user_role from req.body
-    await db.collection("users").doc(userRecord.uid).set({
+const userRef = db.collection("users").doc(userRecord.uid); // Firestore reference
+    await userRef.set({
       email: userRecord.email,
       display_name: userRecord.displayName,
       user_role: user_role,
@@ -53,9 +52,20 @@ app.post("/createUser", async (req, res) => {
       createdAt: FieldValue.serverTimestamp(),
     });
 
-    res
-      .status(201)
-      .send({ message: "User created successfully", userId: userRecord.uid });
+    // Return user reference and user data in the response
+    res.status(201).send({
+      message: "User created successfully",
+      userId: userRecord.uid,
+      userRef: userRef.path, // Return Firestore document reference
+      userData: {
+        email: userRecord.email,
+        display_name: userRecord.displayName,
+        user_role: user_role,
+        userId: userId,
+        phone_number: phone_number,
+        address: address,
+      },
+    });
   } catch (error) {
     console.error("Error creating user:", error);
     res
