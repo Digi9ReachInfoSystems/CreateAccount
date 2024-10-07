@@ -17,6 +17,7 @@ app.post("/createUser", async (req, res) => {
     user_role,
     phone_number,
     address,
+    callbackUrl,
   } = req.body;
 
   if (
@@ -26,7 +27,8 @@ app.post("/createUser", async (req, res) => {
     !displayName ||
     !user_role ||
     !phone_number ||
-    !address
+    !address||
+    !callbackUrl
   ) {
     return res.status(400).send({ message: "Missing required fields" });
   }
@@ -49,6 +51,7 @@ const userRef = db.collection("users").doc(userRecord.uid); // Firestore referen
       userId: userId,
       phone_number: phone_number, // Provided phone number
       address: address,
+      callbackUrl:callbackUrl,
       createdAt: FieldValue.serverTimestamp(),
     });
 
